@@ -1,0 +1,11 @@
+    <h3>Add a New Note</h3>
+    <form (ngSubmit)="addNote()" #noteForm="ngForm">
+      <label>Title</label>
+      <input name="title" [(ngModel)]="note.title" required />
+
+      <label>Content</label>
+      <textarea name="content" [(ngModel)]="note.content" required></textarea>
+
+      <button type="submit" [disabled]="noteForm.invalid">Add Note</button>
+    </form>
+    <p *ngIf="message">{{ message }}</p>

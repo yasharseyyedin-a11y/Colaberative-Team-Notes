@@ -1,0 +1,8 @@
+<h2>Your Notes</h2>
+<button (click)="logout()">Logout</button>
+<app-add-note></app-add-note>
+<ul>
+  <li *ngFor="let note of notes$ | async">
+    <strong>{{ note.title }}</strong>: {{ note.content }}
+  </li>
+</ul>
