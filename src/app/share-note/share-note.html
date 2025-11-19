@@ -1,0 +1,7 @@
+    <h3>Share Note</h3>
+    <form (ngSubmit)="share()">
+      <input [(ngModel)]="this.emailToShare" name="email" placeholder="Enter user email" required />
+      <button type="submit">Share</button>
+      <button type="button" (click)="close()">Cancel</button>
+    </form>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>

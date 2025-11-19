@@ -1,8 +1,22 @@
 <h2>Your Notes</h2>
 <button (click)="logout()">Logout</button>
+<span *ngIf="this.user.uid">User ID: {{ this.user.uid }}</span>
+
 <app-add-note></app-add-note>
+
 <ul>
-  <li *ngFor="let note of notes$ | async">
-    <strong>{{ note.title }}</strong>: {{ note.content }}
+  <li *ngFor="let note of notes$ | async; let i = index">
+    <ng-container *ngIf="editIndex !== i; else editMode">
+      <strong>{{ note.title }}</strong>: {{ note.content }}
+      <button (click)="startEdit(i, note)">Edit</button>
+      <button (click)="note.id && deleteNote(note.id)">Delete</button>
+      <button (click)="openShareModal(note.id??'')">Share</button>
+    </ng-container>
+    <ng-template #editMode>
+      <input [(ngModel)]="editNote.title" placeholder="Title" />
+      <input [(ngModel)]="editNote.content" placeholder="Content" />
+      <button (click)="updateNote()">Save</button>
+      <button (click)="cancelEdit()">Cancel</button>
+    </ng-template>
   </li>
 </ul>

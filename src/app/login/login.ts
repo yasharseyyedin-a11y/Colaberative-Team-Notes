@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../services/user/auth-service';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user/user-service';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   authService = inject(AuthService);
+  userService = inject(UserService);
 
   constructor(private router: Router) {}
 
