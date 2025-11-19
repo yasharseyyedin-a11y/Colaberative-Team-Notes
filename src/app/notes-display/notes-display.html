@@ -8,8 +8,8 @@
   <li *ngFor="let note of notes$ | async; let i = index">
     <ng-container *ngIf="editIndex !== i; else editMode">
       <strong>{{ note.title }}</strong>: {{ note.content }}
+      <button (click)="deleteNote(note.id??'')">Delete</button>
       <button (click)="startEdit(i, note)">Edit</button>
-      <button (click)="note.id && deleteNote(note.id)">Delete</button>
       <button (click)="openShareModal(note.id??'')">Share</button>
     </ng-container>
     <ng-template #editMode>

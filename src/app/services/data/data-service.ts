@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Firestore, collectionData, collection, addDoc, updateDoc, deleteDoc, doc, query, where, arrayUnion } from '@angular/fire/firestore';
 import { combineLatest, map, Observable } from 'rxjs';
 
@@ -6,13 +6,16 @@ export interface Note {
   id?: string;
   title: string;
   content: string;
+  ownerId?: string;
+  sharedWith?: string[];
 }
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
   private notesCollection;
+  firestore=inject(Firestore);
 
-  constructor(private firestore: Firestore) {
+  constructor() {
     this.notesCollection = collection(this.firestore, 'notes');
   }
 
@@ -38,16 +41,15 @@ export class DataService {
     );
   }
 
-  async shareNoteWithUser(noteId: string, uid: string): Promise<void> {
-    const noteRef = doc(this.firestore, `notes/${noteId}`);
-    await updateDoc(noteRef, {
+  async shareNoteWithUser(id: string, uid: string): Promise<void> {
+    const noteDoc = doc(this.firestore, `notes/${id}`);
+    await updateDoc(noteDoc, {
       sharedWith: arrayUnion(uid)
     });
   }
   // Create a new note
   async addNoteForUser(note: Note, uid: string): Promise<void> {
-    console.log({ ...note, userId: uid });
-    await addDoc(this.notesCollection, { ...note, userId: uid });
+    await addDoc(this.notesCollection, { ...note, ownerId: uid });
   }
 
   // Update an existing note by id

@@ -1,68 +1,63 @@
-import { Injectable, EnvironmentInjector, inject, runInInjectionContext } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { User, UserInfo } from 'firebase/auth';
+import { Injectable } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  doc,
+  setDoc,
+  query,
+  where,
+  getDocs,
+} from '@angular/fire/firestore';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
-  private afAuth!: AngularFireAuth;
-  private firestore!: AngularFirestore;
+  private usersCollection;
 
-  constructor(private environmentInjector: EnvironmentInjector) {
-    runInInjectionContext(this.environmentInjector, () => {
-      this.afAuth = inject(AngularFireAuth);
-      this.firestore = inject(AngularFirestore);
-
-      this.afAuth.authState.subscribe((user) => {
-        if (user) {
-          const safeUser = {
-            ...user,
-            providerData: user.providerData.filter((p): p is UserInfo => p !== null),
-          };
-          this.updateUserData(safeUser);
-        }
-      });
-    });
+  constructor(private firestore: Firestore) {
+    this.usersCollection = collection(this.firestore, 'users');
   }
 
-  private updateUserData(user: User) {
-    runInInjectionContext(this.environmentInjector, () => {
-      console.log(this.firestore);
-      if (!user?.uid) {
-        return;
-      }
-      console.log('getting userRed');
-      const userRef = this.firestore.doc(`users/${user.uid}`);
-      userRef.get().subscribe((docSnapshot) => {
-        if (!docSnapshot.exists) {
-          userRef.set(
-            {
-              uid: user.uid,
-              email: user.email ?? '',
-            },
-            { merge: true }
-          );
-        }
-      });
-    });
+  async updateUserData(uid: string, email: string): Promise<void> {
+    console.log("updateUserData");
+    if (!uid) {
+      console.warn('No UID provided, skipping updateUserData');
+      return;
+    }
+    console.log("Read Doc");
+    const userDoc = doc(this.firestore, `users/${uid}`);
+    console.log("Success");
+
+    try {
+      // setDoc with { merge: true } creates or updates the document safely
+    console.log("Set Doc");
+      await setDoc(
+        userDoc,
+        {
+          uid,
+          email,
+          // add more user properties if needed
+        },
+        { merge: true }
+      );
+      console.log('User data successfully updated for UID:', uid);
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
   }
 
   async getUidByEmail(email: string): Promise<string | null> {
-    return runInInjectionContext(this.environmentInjector, async () => {
-      if (!this.firestore) {
-        return null;
-      }
-      const querySnapshot = await this.firestore
-        .collection('users', (ref) => ref.where('email', '==', email))
-        .get()
-        .toPromise();
+    try {
+      const q = query(this.usersCollection, where('email', '==', email));
+      const querySnapshot = await getDocs(q);
 
-      if (querySnapshot && !querySnapshot.empty) {
+      if (!querySnapshot.empty) {
+        // the document id is typically the UID
         return querySnapshot.docs[0].id;
       }
       return null;
-    });
+    } catch (error) {
+      console.error('Error fetching UID by email:', error);
+      return null;
+    }
   }
 }

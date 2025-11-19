@@ -50,7 +50,7 @@ export class NotesComponent implements OnInit {
   }
 
   editIndex: number | null = null;
-  editNote: Note = { id: '', title: '', content: '' };
+  editNote: Note = { id: '', title: '', content: ''};
 
   startEdit(index: number, note: Note) {
     this.editIndex = index;
@@ -76,6 +76,7 @@ export class NotesComponent implements OnInit {
   dialog=inject(MatDialog);
 
   openShareModal(noteId: string) {
+    console.log("called", noteId);
     this.dialog.open(ShareNoteComponent, {
       data: { noteId: noteId }
     });
