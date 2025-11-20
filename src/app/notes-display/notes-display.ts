@@ -24,22 +24,28 @@ export class NotesComponent implements OnInit {
   dataService = inject(DataService);
   authService = inject(AuthService);
 
-  user: any;
-  constructor(private router: Router) { }
+  currentUserId?: string;
+  currentUserEmail?: string;
 
-  async ngOnInit() {
-    this.user = await firstValueFrom(this.authService.currentUser$);
-    console.log(this.user);
-    if (this.user) {
-      this.notes$ = this.dataService.getNotesForUser();
-    } else {
-      this.notes$ = of([]); // or handle no user case
-    }
+  constructor(private router: Router) {
+    this.authService.authState$.subscribe(user => {
+      if (user) {
+        // Use user.uid directly when saving
+        this.currentUserId = (user.uid)??'';
+        this.currentUserEmail = (user.email)??'';
+      }
+    });
   }
 
-  async deleteNote(id: string) {
+  async ngOnInit() {
+    this.notes$ = this.dataService.getNotesForUser();
+  }
+
+  async deleteNote(note: Note) {
+    console.log("called delete note id:", note.id);
+    console.log("owner id is:", note.ownerId);
     try {
-      await this.dataService.deleteNote(id);
+      await this.dataService.deleteNote(note.id ?? '');
     } catch (error) {
       console.error('Delete failed', error);
     }
@@ -51,7 +57,7 @@ export class NotesComponent implements OnInit {
   }
 
   editIndex: number | null = null;
-  editNote: Note = { id: '', title: '', content: ''};
+  editNote: Note = { id: '', title: '', content: '' };
 
   startEdit(index: number, note: Note) {
     this.editIndex = index;
@@ -74,7 +80,7 @@ export class NotesComponent implements OnInit {
     }
   }
 
-  dialog=inject(MatDialog);
+  dialog = inject(MatDialog);
 
   openShareModal(noteId: string) {
     this.dialog.open(ShareNoteComponent, {

@@ -2,7 +2,7 @@
   <div class="left-col">
     <app-add-note></app-add-note>
     <div class="userbar-vertical">
-      <span class="user-info" *ngIf="this.user.uid">User ID: {{ this.user.email }}</span>
+      <span class="user-info" *ngIf="this.currentUserEmail">User Email: {{ this.currentUserEmail }}</span>
       <button class="logout-btn" (click)="logout()">Logout</button>
     </div>
   </div>
@@ -13,9 +13,9 @@
           <strong>{{ note.title }}</strong>
           <div class="note-content">{{ note.content }}</div>
           <div class="note-actions">
-            <button *ngIf="note.ownerId === user.uid" (click)="deleteNote(note.id ?? '')">Delete</button>
-            <button *ngIf="note.ownerId === user.uid" (click)="startEdit(i, note)">Edit note</button>
-            <button *ngIf="note.ownerId === user.uid" (click)="openShareModal(note.id ?? '')">Share with teammate</button>
+            <button *ngIf="note.ownerId === this.currentUserId" (click)="deleteNote(note)">Delete</button>
+            <button *ngIf="note.ownerId === this.currentUserId" (click)="startEdit(i, note)">Edit note</button>
+            <button *ngIf="note.ownerId === this.currentUserId" (click)="openShareModal(note.id ?? '')">Share with teammate</button>
           </div>
         </ng-container>
         <ng-template #editMode>

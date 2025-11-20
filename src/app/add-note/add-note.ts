@@ -17,14 +17,8 @@ export class AddNoteComponent {
   message = '';
 
   dataService = inject(DataService);
-  authService = inject(AuthService);
 
   async addNote() {
-    const user = await firstValueFrom(this.authService.currentUser$);
-    if (!user) {
-      this.message = 'You must be logged in to add notes.';
-      return;
-    }
     try {
       await this.dataService.addNoteForUser(this.note);
       this.message = 'Note added successfully!';

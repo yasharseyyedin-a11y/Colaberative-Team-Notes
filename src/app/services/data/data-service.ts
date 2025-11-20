@@ -22,13 +22,16 @@ export class DataService {
   constructor() {
     this.notesCollection = collection(this.firestore, 'notes');
 
-    // Subscribe to user changes and update currentUserId
-    this.authService.currentUser$.subscribe(user => {
-      this.currentUserId = user?.uid;
+    this.authService.authState$.subscribe(user => {
+      if (user) {
+        // Use user.uid directly when saving
+        this.currentUserId = (user.uid);
+      }
     });
   }
 
   getNotesForUser(): Observable<Note[]> {
+    const uid = this.currentUserId;
     if (!this.currentUserId) {
       // User not loaded yet, return empty or handle as needed
       return new Observable<Note[]>(observer => {
@@ -36,9 +39,7 @@ export class DataService {
         observer.complete();
       });
     }
-    
-    const uid = this.currentUserId;
-    
+
     const ownedNotesQuery = query(this.notesCollection, where('ownerId', '==', uid));
     const sharedNotesQuery = query(this.notesCollection, where('sharedWith', 'array-contains', uid));
 
