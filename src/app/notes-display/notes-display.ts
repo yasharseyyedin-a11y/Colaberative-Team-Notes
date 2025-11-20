@@ -13,7 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
   selector: 'app-notes',
   standalone: true,
   imports: [CommonModule, FormsModule, AddNoteComponent],
-  templateUrl: 'notes-display.html'
+  templateUrl: 'notes-display.html',
+  styleUrl: 'notes-display.css'
 })
 
 export class NotesComponent implements OnInit {

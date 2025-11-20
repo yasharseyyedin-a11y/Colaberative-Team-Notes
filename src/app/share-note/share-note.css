@@ -1,19 +1,108 @@
-/* share-note.component.css */
 :host {
   display: block;
-  min-width: 300px;
   padding: 24px;
+  min-width: 320px;
+  background-color: #fffbe6;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(42, 77, 105, 0.3);
+  font-family: 'Georgia', serif;
+  color: #2a4d69;
 }
 
-/* Add padding/margin around fields and buttons */
-input[type="text"] {
-  width: 100%;
+/* Modal overlay to center the modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(42, 77, 105, 0.6); /* translucent blueish overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Header styling */
+h3 {
+  margin-top: 0;
   margin-bottom: 16px;
-  padding: 8px;
+  font-weight: bold;
+  font-size: 1.8rem;
+  border-bottom: 2px solid #4b86b4;
+  padding-bottom: 8px;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Input text fields */
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #4b86b4;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  transition: border-color 0.3s ease;
   box-sizing: border-box;
 }
 
+input[type="text"]:focus,
+input[type="email"]:focus {
+  outline: none;
+  border-color: #3a6b91;
+  box-shadow: 0 0 6px rgba(58, 107, 145, 0.5);
+}
+
+/* Buttons */
 button {
+  font-family: 'Georgia', serif;
+  background-color: #4b86b4;
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(75, 134, 180, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  min-width: 90px;
   margin-right: 8px;
-  min-width: 80px;
+}
+
+button:hover {
+  background-color: #3a6b91;
+  box-shadow: 0 5px 12px rgba(58, 107, 145, 0.75);
+}
+
+button:focus {
+  outline: 3px solid #a9bede;
+  outline-offset: 2px;
+}
+
+/* Cancel button with lighter style */
+button[type="button"] {
+  background-color: #a9bede;
+  color: #2a4d69;
+  box-shadow: none;
+}
+
+button[type="button"]:hover {
+  background-color: #8aabd8;
+  color: #1d3351;
+}
+
+/* Error message */
+p {
+  font-family: 'Georgia', serif;
+  color: #b34040;
+  margin-top: 10px;
+  font-style: italic;
 }

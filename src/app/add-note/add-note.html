@@ -1,11 +1,13 @@
-    <h3>Add a New Note</h3>
-    <form (ngSubmit)="addNote()" #noteForm="ngForm">
-      <label>Title</label>
-      <input name="title" [(ngModel)]="note.title" required />
+<div class="add-note-card">
+  <h3 class="add-note-header">Add a New Note</h3>
+  <form class="add-note-form" (ngSubmit)="addNote()" #noteForm="ngForm">
+    <label for="title">Title</label>
+    <input id="title" name="title" [(ngModel)]="note.title" required />
 
-      <label>Content</label>
-      <textarea name="content" [(ngModel)]="note.content" required></textarea>
+    <label for="content">Content</label>
+    <textarea id="content" name="content" [(ngModel)]="note.content" required></textarea>
 
-      <button type="submit" [disabled]="noteForm.invalid">New Task</button>
-    </form>
-    <p *ngIf="message">{{ message }}</p>
+    <button type="submit" [disabled]="noteForm.invalid">New Task</button>
+  </form>
+  <p class="add-note-message" *ngIf="message">{{ message }}</p>
+</div>

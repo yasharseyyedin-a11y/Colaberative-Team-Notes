@@ -1,0 +1,47 @@
+.page-container {
+  padding-top: 1px; /* small padding prevents margin collapse */
+  /* or use border: 1px solid transparent; */
+  /* or overflow: hidden; */
+  /* or display: flex; flex-direction: column; */
+}
+
+.school-header {
+  font-family: 'Georgia', serif;
+  color: #2a4d69;
+  background-color: #f0f4f8;
+  border-bottom: 3px solid #4b86b4;
+  padding: 15px 20px;
+  margin-bottom: 10px; /* controlled bottom margin */
+  text-align: center;
+  text-shadow: 1px 1px 0 #a9bede;
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.workspace-outlet {
+  display: block;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  background-color: #fffbe6;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 0px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-top: 10px; /* smaller margin top */
+}
+
+body, html {
+  height: 100%;
+  background: #f6f7fb;
+}
+
+.page-content {
+  max-width: 1400px;       /* Optional: keeps content centered and limits max width */
+  margin: 0 auto;
+  padding: 36px 36px 36px 36px; /* Add space (top, right, bottom, left) or use a single value for all sides */
+  box-sizing: border-box;
+  min-height: 100vh;
+  border-radius: 16px;      /* Optional: mild rounding for contained card effect */
+  /* Optionally add a subtle box-shadow or border for separation */
+}

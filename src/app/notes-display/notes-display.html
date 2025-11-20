@@ -1,22 +1,30 @@
-<button (click)="logout()">Logout</button>
-<span *ngIf="this.user.uid">User ID: {{ this.user.email }}</span>
-
-<app-add-note></app-add-note>
-
-<ul>
-  <li *ngFor="let note of notes$ | async; let i = index">
-    <ng-container *ngIf="editIndex !== i; else editMode">
-      <strong>{{ note.title }}</strong>: {{ note.content }}
-      <!-- Only show if current user is owner of the note -->
-      <button *ngIf="note.ownerId === user.uid" (click)="deleteNote(note.id ?? '')">Delete</button>
-      <button *ngIf="note.ownerId === user.uid" (click)="startEdit(i, note)">Edit note</button>
-      <button *ngIf="note.ownerId === user.uid" (click)="openShareModal(note.id ?? '')">Share with teammate</button>
-    </ng-container>
-    <ng-template #editMode>
-      <input [(ngModel)]="editNote.title" placeholder="Title" />
-      <input [(ngModel)]="editNote.content" placeholder="Content" />
-      <button (click)="updateNote()">Save</button>
-      <button (click)="cancelEdit()">Cancel</button>
-    </ng-template>
-  </li>
-</ul>
+<div class="main-grid-row">
+  <div class="left-col">
+    <app-add-note></app-add-note>
+    <div class="userbar-vertical">
+      <span class="user-info" *ngIf="this.user.uid">User ID: {{ this.user.email }}</span>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+  <div class="notes-bigbox">
+    <ul class="notes-list">
+      <li *ngFor="let note of notes$ | async; let i = index" class="note-card">
+        <ng-container *ngIf="editIndex !== i; else editMode">
+          <strong>{{ note.title }}</strong>
+          <div class="note-content">{{ note.content }}</div>
+          <div class="note-actions">
+            <button *ngIf="note.ownerId === user.uid" (click)="deleteNote(note.id ?? '')">Delete</button>
+            <button *ngIf="note.ownerId === user.uid" (click)="startEdit(i, note)">Edit note</button>
+            <button *ngIf="note.ownerId === user.uid" (click)="openShareModal(note.id ?? '')">Share with teammate</button>
+          </div>
+        </ng-container>
+        <ng-template #editMode>
+          <input [(ngModel)]="editNote.title" placeholder="Title" />
+          <input [(ngModel)]="editNote.content" placeholder="Content" />
+          <button (click)="updateNote()">Save</button>
+          <button (click)="cancelEdit()">Cancel</button>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
+</div>

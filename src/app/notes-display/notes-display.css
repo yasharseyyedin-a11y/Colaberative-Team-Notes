@@ -1,0 +1,293 @@
+.userbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.user-info {
+  margin-left: auto;
+  padding: 8px 22px;
+  border-left: 2px solid #a9bede;
+  font-family: 'Georgia', serif;
+  color: #215288;
+  font-size: 1.15rem;
+  font-weight: 600;
+  background: #e9f2fb;
+  border-radius: 24px 0 0 24px;
+  box-shadow: 0 1px 4px rgba(42, 77, 105, 0.08);
+  letter-spacing: 0.03em;
+  display: inline-block;
+}
+
+.logout-btn {
+  font-family: 'Georgia', serif;
+  background-color: #4b86b4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 22px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(75, 134, 180, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-left: 18px;
+}
+
+.main-grid-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  width: 100%;
+}
+
+/* Add Note Component Side */
+.add-note-side {
+  min-width: 340px;
+  max-width: 360px;
+  flex: 0 0 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Notes Big Box */
+.notes-bigbox {
+  flex: 1 1 0;
+  background: #f5f7fa;
+  border-radius: 14px;
+  box-shadow: 0 3px 18px rgba(75, 134, 180, 0.11), 0 1.5px 0 #a9bede;
+  border: 2.5px solid #a9bede;
+  padding: 36px 30px 30px 30px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note-card {
+  background-color: #fffbe6;
+  border: 1.5px solid #4b86b4;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(75, 134, 180, 0.13);
+  min-width: 340px;
+  max-width: 340px;
+  flex: 0 0 340px;
+  padding: 22px 20px;
+  font-family: 'Arial', sans-serif;
+  color: #2a4d69;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note-card strong {
+  color: #2a4d69;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.note-content {
+  margin-bottom: 14px;
+  color: #333;
+  word-break: break-word;
+}
+
+.note-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.note-card button {
+  background-color: #4b86b4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.note-card button:hover {
+  background-color: #3a6b91;
+}
+
+.note-card input[type="text"] {
+  padding: 8px 10px;
+  border: 1.5px solid #4b86b4;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .main-grid-row {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .add-note-side,
+  .notes-bigbox,
+  .note-card {
+    min-width: 100%;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+
+.main-grid-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  width: 100%;
+  margin-top: 36px;
+  /* Or whatever value you prefer */
+
+}
+
+.left-col {
+  min-width: 340px;
+  max-width: 360px;
+  flex: 0 0 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 24px;
+}
+
+/* The add note component no styling change needed here. */
+
+/* Userbar under add note */
+.userbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.user-info {
+  margin-left: auto;
+  padding: 8px 22px;
+  border-left: 2px solid #a9bede;
+  font-family: 'Georgia', serif;
+  color: #215288;
+  font-size: 1.15rem;
+  font-weight: 600;
+  background: #e9f2fb;
+  border-radius: 24px 0 0 24px;
+  box-shadow: 0 1px 4px rgba(42, 77, 105, 0.08);
+  letter-spacing: 0.03em;
+  display: inline-block;
+}
+
+.logout-btn {
+  font-family: 'Georgia', serif;
+  background-color: #4b86b4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 22px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(75, 134, 180, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-left: 18px;
+}
+
+/* Notes big box and notes-list styling remain the same */
+.notes-bigbox {
+  flex: 1 1 0;
+  background: #f5f7fa;
+  border-radius: 14px;
+  box-shadow: 0 3px 18px rgba(75, 134, 180, 0.11), 0 1.5px 0 #a9bede;
+  border: 2.5px solid #a9bede;
+  padding: 36px 30px 30px 30px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ...Keep note card styles from your previous setup... */
+
+/* Responsive: Stack layout for mobile */
+@media (max-width: 900px) {
+  .main-grid-row {
+    margin-top: 36px;
+    /* Or whatever value you prefer */
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .left-col,
+  .notes-bigbox,
+  .note-card {
+    min-width: 100%;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+.userbar-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.user-info {
+  padding: 8px 22px;
+  border-left: 2px solid #a9bede;
+  font-family: 'Georgia', serif;
+  color: #215288;
+  font-size: 1.15rem;
+  font-weight: 600;
+  background: #e9f2fb;
+  border-radius: 24px 0 0 24px;
+  box-shadow: 0 1px 4px rgba(42, 77, 105, 0.08);
+  letter-spacing: 0.03em;
+  display: inline-block;
+}
+
+.logout-btn {
+  font-family: 'Georgia', serif;
+  background-color: #4b86b4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 22px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(75, 134, 180, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-left: 0;
+}

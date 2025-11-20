@@ -9,7 +9,8 @@ import { firstValueFrom } from 'rxjs';
   selector: 'app-add-note',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: 'add-note.html'
+  templateUrl: 'add-note.html',
+  styleUrl: 'add-note.css'
 })
 export class AddNoteComponent {
   note: Note = { title: '', content: '' };

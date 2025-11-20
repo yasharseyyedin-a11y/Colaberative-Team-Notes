@@ -7,6 +7,7 @@ import { UserService } from '../services/data/user-service';
   selector: 'app-login',
   standalone: true,
   templateUrl: 'login.html',
+  styleUrl: 'login.css'
 })
 export class LoginComponent {
   authService = inject(AuthService);
