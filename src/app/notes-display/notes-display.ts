@@ -30,7 +30,7 @@ export class NotesComponent implements OnInit {
     this.user = await firstValueFrom(this.authService.currentUser$);
     console.log(this.user);
     if (this.user) {
-      this.notes$ = this.dataService.getNotesForUser(this.user.uid);
+      this.notes$ = this.dataService.getNotesForUser();
     } else {
       this.notes$ = of([]); // or handle no user case
     }
@@ -76,7 +76,6 @@ export class NotesComponent implements OnInit {
   dialog=inject(MatDialog);
 
   openShareModal(noteId: string) {
-    console.log("called", noteId);
     this.dialog.open(ShareNoteComponent, {
       data: { noteId: noteId }
     });

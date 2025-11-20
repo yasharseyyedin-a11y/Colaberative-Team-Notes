@@ -1,6 +1,5 @@
-<h2>Your Notes</h2>
 <button (click)="logout()">Logout</button>
-<span *ngIf="this.user.uid">User ID: {{ this.user.uid }}</span>
+<span *ngIf="this.user.uid">User ID: {{ this.user.email }}</span>
 
 <app-add-note></app-add-note>
 
@@ -8,9 +7,10 @@
   <li *ngFor="let note of notes$ | async; let i = index">
     <ng-container *ngIf="editIndex !== i; else editMode">
       <strong>{{ note.title }}</strong>: {{ note.content }}
-      <button (click)="deleteNote(note.id??'')">Delete</button>
-      <button (click)="startEdit(i, note)">Edit</button>
-      <button (click)="openShareModal(note.id??'')">Share</button>
+      <!-- Only show if current user is owner of the note -->
+      <button *ngIf="note.ownerId === user.uid" (click)="deleteNote(note.id ?? '')">Delete</button>
+      <button *ngIf="note.ownerId === user.uid" (click)="startEdit(i, note)">Edit note</button>
+      <button *ngIf="note.ownerId === user.uid" (click)="openShareModal(note.id ?? '')">Share with teammate</button>
     </ng-container>
     <ng-template #editMode>
       <input [(ngModel)]="editNote.title" placeholder="Title" />

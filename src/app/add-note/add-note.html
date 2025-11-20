@@ -6,6 +6,6 @@
       <label>Content</label>
       <textarea name="content" [(ngModel)]="note.content" required></textarea>
 
-      <button type="submit" [disabled]="noteForm.invalid">Add Note</button>
+      <button type="submit" [disabled]="noteForm.invalid">New Task</button>
     </form>
     <p *ngIf="message">{{ message }}</p>

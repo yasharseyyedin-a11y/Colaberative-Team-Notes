@@ -25,7 +25,7 @@ export class AddNoteComponent {
       return;
     }
     try {
-      await this.dataService.addNoteForUser(this.note, user.uid);
+      await this.dataService.addNoteForUser(this.note);
       this.message = 'Note added successfully!';
       this.note = { title: '', content: '' };
     } catch (error) {

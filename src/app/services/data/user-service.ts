@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   Firestore,
   collection,
@@ -8,38 +8,49 @@ import {
   where,
   getDocs,
 } from '@angular/fire/firestore';
+import { AuthService } from '../user/auth-service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private usersCollection;
+  firestore = inject(Firestore);
+  authService = inject(AuthService);
+  userId: string | null | undefined;
+  email: string | null | undefined;
 
-  constructor(private firestore: Firestore) {
+  constructor() {
     this.usersCollection = collection(this.firestore, 'users');
+
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+        this.email = user.email ?? null;
+      } else {
+        this.userId = null;
+        this.email = null;
+      }
+    });
   }
 
-  async updateUserData(uid: string, email: string): Promise<void> {
-    console.log("updateUserData");
-    if (!uid) {
+  async updateUserData(): Promise<void> {
+    if (!this.userId) {
       console.warn('No UID provided, skipping updateUserData');
       return;
     }
-    console.log("Read Doc");
-    const userDoc = doc(this.firestore, `users/${uid}`);
-    console.log("Success");
+    const userDoc = doc(this.firestore, `users/${this.userId}`);
 
     try {
       // setDoc with { merge: true } creates or updates the document safely
-    console.log("Set Doc");
+      console.log("Set Doc");
       await setDoc(
         userDoc,
         {
-          uid,
-          email,
+          userId: this.userId,
+          email: this.email,
           // add more user properties if needed
         },
         { merge: true }
       );
-      console.log('User data successfully updated for UID:', uid);
     } catch (error) {
       console.error('Error updating user data:', error);
     }
