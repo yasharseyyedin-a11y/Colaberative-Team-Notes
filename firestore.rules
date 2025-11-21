@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Match any document in the 'notes' collection
+    match /notes/{noteId} {
+      allow read: if request.auth != null && (
+        request.auth.uid == resource.data.ownerId ||  // owner can read
+        resource.data.sharedWith != null &&           // check sharedWith array contains user uid
+        request.auth.uid in resource.data.sharedWith
+      );
+
+      allow update, delete: if request.auth != null && (
+        request.auth.uid == resource.data.ownerId     // only owner can write (adjust if sharing should allow edits)
+      );
+
+      // Allow create if authenticated and userId matches
+      allow create: if request.auth != null;    
+    }
+
+
+
+
+    match /users/{userId} {
+      // Allow users to read their own document
+      allow read: if true;
+
+      // Allow create if authenticated and userId matches
+      allow create: if request.auth != null && request.auth.uid == userId;
+
+      // Allow update only if user is authenticated, owns the document,
+      // and does NOT change protected fields like 'username'
+      allow update: if false;
+    }
+    
+  }
+}

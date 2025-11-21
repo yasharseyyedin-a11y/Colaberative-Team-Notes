@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService, Note } from '../services/data/data-service'; // Your existing service
-import { AuthService } from '../services/user/auth-service'; // To get current user info
 import { CommonModule } from '@angular/common';
-import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-add-note',
