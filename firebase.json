@@ -6,7 +6,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist/realtime-collab-app",
+    "public": "dist/realtime-collab-app/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
